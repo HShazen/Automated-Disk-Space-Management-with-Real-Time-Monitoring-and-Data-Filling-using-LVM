@@ -52,7 +52,7 @@ def usage(path):
                 #print(f"{path} Usage: {usage.percent}%", end='\r')
 
                 # Check if usage exceeds 80%
-                if usage.percent > 10:
+                if usage.percent > 80:
                     print("\nUsage exceeded 80%, extending LV...")
 
                     # Get the LV path based on the mount point
@@ -80,22 +80,3 @@ def usage(path):
         print(f"\nThe path {path} is not mounted or doesn't exist.")
     except KeyboardInterrupt:
         print("\nStopped monitoring.")
-
-
-"""
-def usage(path):
-    try:
-        while True:
-            usage = psutil.disk_usage(path)
-            print(f"{path} Usage: {usage.percent}%", end='\r')
-            if usage.percent > 80:
-                print("\nUsage exceeded 80%, extending LV...")
-                bash(f"sudo lvextend -L500 {path}")  # Extend the LV by 1 GB
-                bash(f"sudo resize2fs {path}")  # Resize the filesystem (for ext4 or similar filesystems)
-            time.sleep(1)  # Update every second
-    except FileNotFoundError:
-        print(f"\nThe path {path} is not mounted or doesn't exist.")
-    except KeyboardInterrupt:
-        print("\nStopped monitoring.")
-
-"""
